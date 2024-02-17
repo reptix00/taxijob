@@ -1,5 +1,5 @@
 
-function locale(msg)
+function Locale(msg)
     return Config.Translations[Config.Locale][msg] or msg
 end
 -- why this below me? because..
@@ -16,7 +16,7 @@ end)
 
 
 
-function isanycartaken(args)
+function IsAnyCarTaken(args)
     for k,v in pairs(args) do
         if v.taken then
             return true
@@ -26,7 +26,7 @@ function isanycartaken(args)
 end
 
 blips = {}
-function createBlips()
+function CreateBlips()
     for k,v in pairs(Config.Jobs) do
         local blip = AddBlipForCoord(v.coords.start.x, v.coords.start.y, v.coords.start.z)
         SetBlipSprite(blip, 198)
@@ -39,7 +39,7 @@ function createBlips()
         table.insert(blips, blip)
     end
 end
-function createZones()
+function CreateZones()
     for k,v in pairs(Config.Jobs) do
         insidezone = lib.points.new({
             coords = vector3(v.coords.start.x, v.coords.start.y, v.coords.start.z),
@@ -48,9 +48,9 @@ function createZones()
        function insidezone:onEnter()
         if lib.table.contains(Config.TaxiJobs, ESX.PlayerData.job.name) then
                 if ESX.PlayerData.job.name == 'taxi' then
-                    ESX.ShowHelpNotification(locale('showhelpnotification'))
+                    ESX.ShowHelpNotification(Locale('showhelpnotification'))
                     if IsControlJustReleased(0, 38) then
-                        openMenuWithContents()
+                        OpenBuyVehicleMenu()
                     end
                 end
         end
@@ -72,19 +72,19 @@ end
 
 
 
-function openMenuWithContents()
+function OpenBuyVehicleMenu()
     lib.registerMenu({
         id = 'GetVehicleMenu',
-        title = locale('getvehiclemenu'),
+        title = Locale('getvehiclemenu'),
         position = 'top-left',
         options = {},
         onSelected = function(selected, secondary, args)
-                if isanycartaken(args) then
-                    ESX.ShowNotification(locale('vehiclebought'))
+                if IsAnyCarTaken(args) then
+                    ESX.ShowNotification(Locale('vehiclebought'))
                     return
                 end
                 if ESX.PlayerData.money < car.price then
-                    ESX.ShowNotification(locale('notenoughmoney'))
+                    ESX.ShowNotification(Locale('notenoughmoney'))
                     return
                 end
                 TriggerServerEvent('taxijob:buyVehicle', car.name, car.price) -- ich spawn das auto jetzt server side, ist sicherer vor hackern :) 
@@ -100,5 +100,5 @@ function openMenuWithContents()
     lib.showMenu('GetVehicleMenu')
 end
 
-createBlips() -- creates blips
-createZones() -- creates zones
+CreateBlips() -- creates blips
+CreateZones() -- creates zones
