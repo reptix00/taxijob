@@ -19,6 +19,8 @@ shared_scripts {
 
 client_scripts {
     'client.lua',
+    'Config.lua',
+    'missions.lua'
 } 
 
 server_scripts {
