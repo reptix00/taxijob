@@ -43,6 +43,7 @@ Config.Translations = {
         ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
         ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
         ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
+        ["getvehiclemenu"] = "Fahrzeug-Menü",
     }
     ["en"] = {
         ["showhelpnotification"] = "Press ~INPUT_CONTEXT~ to start the job",
@@ -54,5 +55,6 @@ Config.Translations = {
         ["vehiclestored"] = "You stored the vehicle",
         ["vehiclestored"] = "You stored the vehicle",
         ["vehiclestored"] = "You stored the vehicle",
+         ["getvehiclemenu"] = "Vehicle-Menu",
     }
 }
