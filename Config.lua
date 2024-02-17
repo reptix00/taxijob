@@ -35,8 +35,24 @@ Config.Cars = {
 Config.Translations = {
     ["de"] = {
         ["showhelpnotification"] = "Drücke ~INPUT_CONTEXT~ um den Job zu starten",
+        ["alreadyspawned"] = "Du hast bereits ein Fahrzeug",
+        ["vehiclebought"] = "Du hast das Fahrzeug gekauft",
+        ["notenoughmoney"] = "Du hast nicht genug Geld",
+        ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
+        ["notyourvehicle"] = "Das ist nicht dein Fahrzeug",
+        ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
+        ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
+        ["vehiclestored"] = "Du hast das Fahrzeug eingelagert",
     }
     ["en"] = {
         ["showhelpnotification"] = "Press ~INPUT_CONTEXT~ to start the job",
+        ["alreadyspawned"] = "You already have a vehicle",
+        ["vehiclebought"] = "You bought the vehicle",
+        ["notenoughmoney"] = "You don't have enough money",
+        ["vehiclestored"] = "You stored the vehicle",
+        ["notyourvehicle"] = "This is not your vehicle",
+        ["vehiclestored"] = "You stored the vehicle",
+        ["vehiclestored"] = "You stored the vehicle",
+        ["vehiclestored"] = "You stored the vehicle",
     }
 }

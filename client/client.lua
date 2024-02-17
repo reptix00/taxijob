@@ -87,42 +87,56 @@ end
 --        end
 -- end)
 
+function isanycartaken(args)
+    for k,v in pairs(args) do
+        if v.taken then
+            return true
+        end
+    end
+    return false
+end
+
 function openMenuWithContents()
     lib.registerMenu({
         id = 'GetVehicleMenu',
         title = 'Taxi Fahrzeug beanspruchen',
         position = 'top-left',
         options = {},
-        onSelected = function(_, _, args, _)
-            for _,car in pairs (args) do
-                if isVehicleExist then
-                    ESX.ShowNotification('Das Fahrzeug ist bereits gespawnt')
+        onSelected = function(selected, secondary, args)
+                if isanycartaken(args) then
+                    ESX.ShowNotification(locale('vehiclebought'))
                     return
                 end
-                ESX.Game.SpawnVehicle(car.name, car.spawnCoords, car.spawnHeading, function (spawnedVehicle)
-                    print('Spawned'..car.name)
-                    vehiclePlate = GetVehicleNumberPlateText(spawnedVehicle)
-                    print(vehiclePlate)
-                    hasTookVehicle = true
-                    Citizen.CreateThread(function ()
+                if ESX.PlayerData.money < car.price then
+                    ESX.ShowNotification(locale('notenoughmoney'))
+                    return
+                end
+                TriggerServerEvent('taxijob:buyVehicle', car.name, car.price) -- ich spawn das auto jetzt server side, ist sicherer vor hackern :) 
+                args[argskey].taken = true -- this adds .taken to the car table and sets it to true
 
-                        while true do 
-                            Wait(0)
-                            isVehicleExist = DoesEntityExist(spawnedVehicle)    
-                            print(DoesEntityExist(spawnedVehicle))    
-                        end
-                       
-                    end)
-                end)
-            end
+                
+            --     if isVehicleExist or hasTookVehicle then -- sei sicher ads du diese beiden values wenn er es abgibst wieder auf  false machst, sonst kann er kein neues taxi holen :)
+            --         ESX.ShowNotification(locale('alreadyspawned'))
+            --         return
+            --     end
+            --     pcall(function()
+            --         ESX.Game.SpawnVehicle(car.name, car.spawnCoords, car.spawnHeading, function (spawnedVehicle)
+            --             vehiclePlate = GetVehicleNumberPlateText(spawnedVehicle)
+            --             hasTookVehicle = true
+            --         end)
+            --     end, function(err)
+            --         print("Error spawning vehicle: " .. err)
+            --     end)
+            -- end
 
+           
         end,
     }, function(selected, scrollIndex, args)
     end)
     local i = 1
-    for carsKey,carValue in pairs(cars) do
-        lib.setMenuOptions('GetVehicleMenu', {label = cars[carsKey].name, icon = 'plus', args = {carValue}}, i)
-        i = i+1
+    for carsKey,carValue in pairs(Config.Cars) do
+        lib.setMenuOptions('GetVehicleMenu', {label = cars[carsKey].name, icon = 'plus', args = cars[carskey]}, i)
+        i += 1
     end
     lib.showMenu('GetVehicleMenu')
 end
@@ -154,5 +168,5 @@ end
 
 
 
-createBlips()
-createZones()
+createBlips() -- creates blips
+createZones() -- creates zones
